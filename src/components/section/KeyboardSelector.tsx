@@ -35,11 +35,11 @@ const KeyboardSelector: React.FC = () => {
     },
   });
 
-  const { keyboardModel, setKeyboardModel } = useKeyboard();
+  const { setKeyboardModel } = useKeyboard();
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     setKeyboardModel(data.keyboardModel);
-    console.log(`New Keyboard model set to: ${keyboardModel}`);
+    console.log(`New Keyboard model set to: ${data.keyboardModel}`);
   }
 
   return (

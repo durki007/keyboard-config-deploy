@@ -1,17 +1,15 @@
 import { Button } from '@/components/ui/button.tsx';
 import React, { useMemo } from 'react';
-import { useColor } from '@/context/ColorContext.tsx';
 
 interface ColorSquareProps {
   value: string;
+  setColor: (color: string) => void;
 }
 
-const ColorSquare: React.FC<ColorSquareProps> = ({ value }) => {
+const ColorSquare: React.FC<ColorSquareProps> = ({ value, setColor }) => {
   const parsedValue = useMemo(() => {
     return value || '#FFFFFF';
   }, [value]);
-
-  const { setColor } = useColor();
 
   return (
     <Button

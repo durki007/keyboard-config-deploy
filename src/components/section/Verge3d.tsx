@@ -3,10 +3,10 @@ import { createApp } from '@/lib/v3dApp/app';
 import '@/lib/v3dApp/app.css';
 import { useColor } from '@/context/ColorContext.tsx';
 import { useKeyboard } from '@/context/KeyboardContext.tsx';
-import { keyboardStrategy } from '@/utils/keyboard-strategy..ts';
+import { keyboardStrategy } from '@/utils/keyboard-strategy.ts';
 
 const V3DApp = () => {
-  const { color } = useColor();
+  const { color, backlightColor } = useColor();
   const { keyboardModel } = useKeyboard();
 
   const [uuid, setUuid] = useState(() => crypto.randomUUID());
@@ -65,6 +65,13 @@ const V3DApp = () => {
         title="Toggle fullscreen mode"
       />
       <input type="color" id="color-changer" hidden value={color} readOnly />
+      <input
+        type="color"
+        id="backlight-changer"
+        hidden
+        value={backlightColor}
+        readOnly
+      />
     </div>
   );
 };

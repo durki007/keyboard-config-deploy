@@ -4,6 +4,9 @@ type ColorContextType = {
   color: string;
   setColor: (color: string) => void;
   recentColors: string[];
+  backlightColor: string;
+  setBacklightColors: (color: string) => void;
+  recentBacklightColors: string[];
 };
 
 const ColorContext = createContext<ColorContextType | undefined>(undefined);
@@ -18,11 +21,18 @@ export const useColor = () => {
 
 export const ColorProvider = ({ children }: { children: ReactNode }) => {
   const [color, setColorState] = useState('#ffffff');
+  const [backlightColor, setBacklightColorState] = useState('#b52929');
+  const [recentBacklightColors, setRecentBacklightColors] = useState<string[]>([
+    '#4c2897',
+    '#069a68',
+    '#4e5b7c',
+    '#871212',
+  ]);
   const [recentColors, setRecentColors] = useState<string[]>([
-    '#ffffff',
-    '#ffffff',
-    '#ffffff',
-    '#ffffff',
+    '#4c2897',
+    '#069a68',
+    '#4e5b7c',
+    '#871212',
   ]);
 
   const setColor = (newColor: string) => {
@@ -35,8 +45,27 @@ export const ColorProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
+  const setBacklightColors = (newColor: string) => {
+    setBacklightColorState(newColor);
+
+    setRecentBacklightColors((prev) => {
+      const filtered = prev.filter((c) => c !== newColor); // remove if already exists
+      const updated = [newColor, ...filtered]; // add to front
+      return updated.slice(0, 4);
+    });
+  };
+
   return (
-    <ColorContext.Provider value={{ color, setColor, recentColors }}>
+    <ColorContext.Provider
+      value={{
+        color,
+        setColor,
+        recentColors,
+        backlightColor,
+        setBacklightColors,
+        recentBacklightColors,
+      }}
+    >
       {children}
     </ColorContext.Provider>
   );
